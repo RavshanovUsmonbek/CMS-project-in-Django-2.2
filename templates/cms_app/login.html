@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Home - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/blog-home.css' %}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+  {% include 'cms_app/nav.html' %}
+
+<!-- Page Content -->
+<div class="container">
+
+<section id="login">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+            <div class="form-wrap">
+            <h1>Login</h1>
+
+            <form action="{% url 'cms_app:user_login' %}" method="post">{% csrf_token %}
+            <div class="form-group">
+                <input name="username" type="text" class="form-control" placeholder="Enter Username">
+            </div>
+            <div class="input-group">
+                <input name="password" type="password" class="form-control" placeholder="Enter Password">
+
+                <span class="input-group-btn">
+                   <button class="btn btn-primary" name="login" type="submit">Submit</button>
+                </span>
+            </div>
+            </form>
+
+            </div>
+        </div> <!-- /.col-xs-12 -->
+    </div> <!-- /.row -->
+</div> <!-- /.container -->
+</section>
+    <hr>
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Umbrella Corp. 2019</p>
+            </div>
+        </div>
+        <!-- /.row -->
+    </footer>
+
+</div>
+<!-- /.container -->
+
+<!-- jQuery -->
+<script src="{% static 'js/jquery.js' %}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

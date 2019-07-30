@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+{% load crispy_forms_tags %}
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Home - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/blog-home.css' %}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+  {% include 'cms_app/nav.html' %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-8">
+              {% if post %}
+                <!-- Blog Post -->
+
+                <!-- Title -->
+                <h1>{{post.post_title}}</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by <a href="{% url 'cms_app:post_sort' by='author' id=post.post_author.id %}">{{post.post_author.username}}</a>
+                </p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.post_date}}</p>
+
+                <hr>
+
+                <!-- Preview Image -->
+                <img class="img-responsive" src="{{ post.post_image.url }}" alt="">
+
+                <hr>
+                <!-- Post Content -->
+                <p>{{post.post_content}}</p>
+                <hr>
+            
+                {% endif %}
+
+                <!-- Blog Comments -->
+                {% include 'cms_app/comments.html' %}
+
+            </div>
+
+            <!-- Blog Sidebar Widgets Column -->
+            {% include 'cms_app/sidebar.html' %}
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

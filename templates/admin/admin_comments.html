@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>SB Admin - Bootstrap Admin Template</title>
+
+    <!-- Bootstrap Core CSS -->
+
+    <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet" media="screen">
+
+
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        {% include 'admin/navbar.html' %}
+
+        <!-- Sidebar -->
+        {% include 'admin/sidebar.html' %}
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="page-header">
+                          Comments
+                            <small>page</small>
+                        </h1>
+                      <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Id</th>
+                              <th scope="col">Author</th>
+                              <th scope="col">Comment</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">In Response to</th>
+                              <th scope="col">Approve</th>
+                              <th scope="col">Disapprove</th>
+                              <th scope="col">Delete</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for com in comments %}
+                            <tr>
+                              <td>{{com.com_id}}</td>
+                              <td>{{com.com_author.username}}</td>
+                              <td>{{com.com_content}}</td>
+                              <td>{{com.com_author.email}}</td>
+                              <td>{{com.com_date}}</td>
+                              <td>{{com.com_status}}</td>
+                              <td><a href="{% url 'cms_app:user_post' com.com_post_id.post_id %}">{{com.com_post_id.post_title}}</a></td>
+                              <td><a href="{% url 'cms_app:comment_approval' id=com.com_id status='approved' %}">Approve</a></td>
+                              <td><a href="{% url 'cms_app:comment_approval' id=com.com_id status='disapproved' %}">Disapprove</a></td>
+                              <td><a href="{% url 'cms_app:comment_delete' id=com.com_id  %}">Delete</a></td>
+                            </tr>
+                            {% endfor %}
+                          <tbody>
+                        </table>
+
+                      </div>
+
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

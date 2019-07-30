@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Home - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/blog-home.css' %}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <!-- Navigation -->
+    {% include 'cms_app/nav.html' %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+              {% if posts %}
+                {% for post in posts %}
+
+                <!-- First Blog Post -->
+
+                <h2>
+                    <a href="{% url 'cms_app:user_post' post.post_id %}">{{post.post_title}}</a>
+                </h2>
+                <p class="lead">
+                    by <a href="{% url 'cms_app:post_sort' by='author' id=post.post_author.id %}">{{ post.post_author.username }}</a>
+                </p>
+                <p><span class="glyphicon glyphicon-time"></span>{{post.post_date}}</p>
+                <hr>
+                <a href="{% url 'cms_app:user_post' post.post_id %}"> <img class="img-responsive" src="{{ post.post_image.url }}" alt=""></a>
+                <hr>
+                <p>{{post.post_content|slice:"0:400"}}</p>
+                <a class="btn btn-primary" href="{% url 'cms_app:user_post' id=post.post_id %}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <hr>
+                {% endfor %}
+                {% endif %}
+
+                <!-- Pager -->
+                <ul class="pager">
+                  {% if contacts.has_previous %}
+                  <li>
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ contacts.previous_page_number }}">previous</a>
+                  </li>
+                  {% endif %}
+
+                    {% for i in range %}
+                    <li>
+                        <a href="{% url 'cms_app:index' %}?page={{i}}">{{i}}</a>
+                    </li>
+                    {% endfor %}
+
+                    {% if contacts.has_next %}
+                    <li>
+                      <a href="?page={{ contacts.next_page_number }}">next</a>
+                      <a href="?page={{ contacts.paginator.num_pages }}">last &raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+            </div>
+
+            <!-- Blog Sidebar Widgets Column -->
+            {% include 'cms_app/sidebar.html' %}
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

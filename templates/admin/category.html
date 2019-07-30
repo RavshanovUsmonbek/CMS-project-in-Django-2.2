@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>SB Admin - Bootstrap Admin Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        {% include 'admin/navbar.html' %}
+
+        <!-- Sidebar -->
+        {% include 'admin/sidebar.html' %}
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Category
+                            <small>page</small>
+                        </h1>
+
+                        <div class="col-xs-6">
+
+                          <form class="" action="{% url 'cms_app:category' %}" method="post">{% csrf_token %}
+                            {% for field in form %}
+                            <div class="form-group">
+                              <label for="cat_title"> Add Category </label>
+                              {{field}}
+                            </div>
+                            {% endfor %}
+                            <input class ="btn btn-primary" type="submit" name="submit" value="Add Category">
+                          </form>
+
+                          {% if updating_cat %}
+                          <br>
+                          <br>
+                          <form class="" action="" method="post">{% csrf_token %}
+                            {% for field in form %}
+                            <div class="form-group">
+                              <label for="cat_title"> Update <q style="font-style:italic">{{updating_cat.cat_title}}</q> Category</label>
+                              {{field}}
+                            </div>
+                            {% endfor %}
+                            <input class ="btn btn-warning" type="submit" name="submit" value="Update Category">
+                          </form>
+                          {% endif %}
+
+                        </div>
+
+                        <div class="col-xs-6">
+                          <table class="table table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th>Id</th>
+                                <th>Category Title</th>
+                                <th>DELETE</th>
+                                <th>EDIT</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                          {% for cat in categories %}
+                            <tr>
+                              <td>{{cat.cat_id}}</td>
+                              <td>{{cat.cat_title}}</td>
+                              <td><a href='{% url 'cms_app:cat_delete' id=cat.cat_id %}'>Delete</a></td>
+                              <td><a href='{% url 'cms_app:cat_edit' id=cat.cat_id %}'>Edit</a></td>
+                            </tr>
+                          {% endfor %}
+
+<!-- <?php
+
+
+$query = "SELECT * FROM categories";
+$select_categories = mysqli_query($connection,$query);
+
+while($row = mysqli_fetch_assoc($select_categories)) {
+$cat_id = $row['cat_id'];
+$cat_title = $row['cat_title'];
+
+echo "<tr>";
+
+echo "<td>{$cat_id}</td>";
+echo "<td>{$cat_title}</td>";
+echo "<td><a href='categories.php?delete={$cat_id}'>Delete</a></td>";
+echo "<td><a href='categories.php?edit={$cat_id}'>Edit</a></td>";
+echo "</tr>";
+
+}
+
+?> -->
+
+                    </tbody>
+                    </table>
+                    </div>
+
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

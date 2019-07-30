@@ -1,0 +1,38 @@
+{% load crispy_forms_tags %}
+                {% if warning != "None" %}
+                <div class="alert alert-warning">
+                  {{warning}}
+                </div>
+                {% endif %}
+                <!-- Comments Form -->
+                <div class="well">
+                    <h4>Leave a Comment:</h4>
+                    <form method="post">
+                      {% csrf_token %}
+                        {{commentForm|crispy }}
+                        <button type="submit" class="btn btn-primary" name='submit' value="submit">Submit</button>
+                    </form>
+                </div>
+
+                <hr>
+
+                <!-- Posted Comments -->
+
+                <!-- Comment -->
+                {% if comments %}
+                {% for com in comments %}
+
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ com.com_author.userprofile.user_image.url }}" width="64px" height="64px">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{com.com_author.username}}
+                            <small>Posted on {{com.com_date}}</small>
+                        </h4>
+                        {{com.com_content}}
+                    </div>
+                </div>
+
+                {% endfor %}
+                {% endif %}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>SB Admin - Bootstrap Admin Template</title>
+
+    <!-- Bootstrap Core CSS -->
+
+    <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet" media="screen">
+
+
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        {% include 'admin/navbar.html' %}
+
+        <!-- Sidebar -->
+        {% include 'admin/sidebar.html' %}
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="page-header">
+                          POST
+                            <small>page</small>
+                        </h1>
+                      <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                          <div class="col-xs-4 col-xs-offset-11">
+                            <a class="btn btn-primary" href="{% url 'cms_app:post_add' %}">Add New</a>
+                          </div>
+                          <br>
+                          <br>
+
+                          <thead>
+                            <tr>
+
+                              <th scope="col">Id</th>
+                              <th scope="col">Author</th>
+                              <th scope="col">Title</th>
+                              <th scope="col">Category</th>
+                              <th scope="col">Content</th>
+                              <th scope="col">Image</th>
+                              <th scope="col">Tags</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Comment count</th>
+                              <th scope="col">DELETE</th>
+                              <th scope="col">EDIT</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for post in posts %}
+                            <tr>
+
+                              <td>{{post.post_id}}</td>
+                              <td>{{post.post_author.username}}</td>
+                              <td>{{post.post_title}}</td>
+                              <td>{{post.post_cat_id.cat_title}}</td>
+                              <td>{{post.post_content|slice:'0:100'}}</td>
+                              {% if post.post_image %}
+                              <td>
+                                <img src="{{post.post_image.url|default:'nothing'}}" class="img-responsive" >
+                              </td>
+                              {% else %}
+                              <td>no image</td>
+                              {% endif %}
+                              <td>{{post.post_tags}}</td>
+                              <td>{{post.post_status}}</td>
+                              <td>{{post.post_date}}</td>
+                              <td>{{post.post_comment_count}}</td>
+                              <td><a href="{% url 'cms_app:post_delete' id=post.post_id %}">delete</a></td>
+                              <td><a href="{% url 'cms_app:post_edit' id=post.post_id %}">update</a></td>
+
+                            </tr>
+                            {% endfor %}
+                          <tbody>
+                        </table>
+
+                      </div>
+
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>
