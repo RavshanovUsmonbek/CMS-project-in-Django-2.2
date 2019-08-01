@@ -11,6 +11,7 @@ class Catagory(models.Model):
     def __str__(self):
         return self.cat_title
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     user_image = models.ImageField(upload_to = 'users_pics', blank = True)
@@ -29,7 +30,7 @@ class Post(models.Model):
     post_image = models.ImageField(upload_to = 'posts_pics', blank = True)
     post_content = models.TextField()
     post_tags = models.CharField(max_length=256, blank = True)
-    post_comment_count = models.IntegerField(blank = True, default = 0)
+    post_comment_count = models.IntegerField(blank=True, default=0)
     post_status = models.CharField(max_length=256)
 
     def __str__(self):

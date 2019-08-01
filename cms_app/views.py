@@ -89,6 +89,8 @@ def register(request):
                 profile.user_image = request.FILES['user_image']
 
             profile.save()
+            login(request, user)
+            request.session['user_id'] = user.id
             return redirect('cms_app:admin_index')
     else:
         UserForm = RegisterUserForm()
