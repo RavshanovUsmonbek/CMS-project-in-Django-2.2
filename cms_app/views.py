@@ -319,6 +319,7 @@ def user_profile(request):
     if request.session.has_key('user_id'):
         user_id = request.session['user_id']
         user1 = User.objects.get(pk=user_id)
+        
 
         if request.POST:
             UserForm = RegisterUserForm(request.POST, instance=user1)

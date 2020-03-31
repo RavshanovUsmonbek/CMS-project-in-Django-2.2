@@ -43,8 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'cms_app',
+
     'crispy_forms',
     'tinymce',
+    'django_cleanup',
 
 ]
 

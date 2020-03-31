@@ -14,7 +14,7 @@ class Catagory(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    user_image = models.ImageField(upload_to = 'users_pics', blank = True)
+    user_image = models.ImageField(upload_to = 'users_pics', blank = True,null=True,default=None)
     user_isAdmin = models.BooleanField(default = False)
 
     def __str__(self):

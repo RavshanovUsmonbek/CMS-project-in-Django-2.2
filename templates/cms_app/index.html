@@ -51,7 +51,11 @@
                 <hr>
                 <a href="{% url 'cms_app:user_post' post.post_id %}"> <img class="img-responsive" src="{{ post.post_image.url }}" alt=""></a>
                 <hr>
-                <p>{{post.post_content|slice:"0:400"}}</p>
+                <p>
+                    {% autoescape off %}
+                        {{post.post_content|slice:"0:400"}}
+                    {% endautoescape %}
+                </p>
                 <a class="btn btn-primary" href="{% url 'cms_app:user_post' id=post.post_id %}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                 <hr>
                 {% endfor %}
